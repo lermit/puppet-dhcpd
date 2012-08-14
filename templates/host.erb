@@ -1,10 +1,10 @@
   host <%= name %> {
     hardware ethernet <%= hwaddr %>;
     fixed-address <%= ip %>;
-<% if $pxe_server != '' -%>
+<% if pxe_server != '' -%>
     next-server <%= pxe_server %>;
 <% end -%>
-<% if $pxe_file != '' -%>
+<% if pxe_file != '' -%>
     filename "<%= pxe_file %>";
 <% end -%>
 
