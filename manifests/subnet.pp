@@ -113,7 +113,8 @@ define dhcpd::subnet(
       order   => 01,
     }
 
-    if $dhcpd::mode == 'master' {
+    if $dhcpd::mode == 'master'
+    or $dhcpd::mode == 'standalone' {
       Concat::Fragment <<| tag == "dhcpd-$export_tag" |>> {
         target => "$dhcpd::config_dir/$subnet_config_file",
         notify => $dhcpd::manage_service_autorestart,
