@@ -1,0 +1,4 @@
+<% if scope.lookupvar('dhcpd::mode') == 'master' or scope.lookupvar('dhcpd::mode') == 'slave' then -%>
+  }
+<% end -%>
+}

@@ -1,0 +1,16 @@
+# File managed by puppet
+subnet <%= ip %> netmask <%= netmask %> {
+
+<% options.each do |key, value| -%>
+  option <%= key %> <%= value %>;
+<% end -%>
+
+<% if scope.lookupvar('dhcpd::mode') == 'master' or scope.lookupvar('dhcpd::mode') == 'slave' then -%>
+  pool {
+    failover peer "dhcp";
+<% end -%>
+
+<% range.each do | ip_start, ip_end | -%>
+  range <%= ip_start %> <%= ip_end %>;
+<% end -%>
+

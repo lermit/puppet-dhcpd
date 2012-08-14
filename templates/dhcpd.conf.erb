@@ -1,0 +1,30 @@
+#File managed by puppet
+
+ddns-update-style none;
+one-lease-per-client true;
+log-facility local7;
+default-lease-time 300;
+max-lease-time 300;
+<% if mode == 'master' then -%>
+authoritative;
+<% end -%>
+
+<% if mode == 'master' or mode == 'slave' then -%>
+failover peer "dhcp" {
+<% if mode == 'master' -%>
+  primary;
+  split 128;
+<% else -%>
+  secondary;
+<% end -%>
+  address <%= ipaddress %> ;
+  port <%= scope.lookupvar( 'dhcpd::peer_port' ) %>;
+  peer address <%= scope.lookupvar( 'dhcpd::peer_address' ) %>;
+  peer port <%= scope.lookupvar( 'dhcpd::peer_port' ) %>;
+  max-response-delay 60;
+  max-unacked-updates 10;
+  mclt 600;
+  load balance max seconds 3;
+}
+<% end -%>
+
