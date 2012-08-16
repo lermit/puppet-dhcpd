@@ -154,8 +154,9 @@ describe 'dhcpd' do
   end
 
   describe 'Test Monitoring Tools Integration' do
-    let(:params) { {:monitor => true, :monitor_tool => "puppi" } }
+    let(:params) { {:monitor => true, :monitor_tool => "puppi", :protocol => 'udp', :port => 42} }
 
+    it { should_not contain_monitor__port('dhcpd_udp_42') }
     it 'should generate monitor defines' do
       content = catalogue.resource('monitor::process', 'dhcpd_process').send(:parameters)[:tool]
       content.should == "puppi"
