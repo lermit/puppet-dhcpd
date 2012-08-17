@@ -364,6 +364,7 @@ class dhcpd (
   }
 
   if $dhcpd::bool_absent == false {
+    include concat::setup
     concat { $dhcpd::config_file:
       mode    => $dhcpd::config_file_mode,
       owner   => $dhcpd::config_file_owner,
