@@ -10,6 +10,13 @@ subnet <%= ip %> netmask <%= netmask %> {
     failover peer "dhcp";
 <% end -%>
 
+<% if pxe_server != '' -%>
+  next-server <%= pxe_server %>;
+<% end %>
+<% if pxe_file != '' -%>
+  filename "<%= pxe_file %>";
+<% end %>
+
 <% range.each do | ip_start, ip_end | -%>
   range <%= ip_start %> <%= ip_end %>;
 <% end -%>

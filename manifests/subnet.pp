@@ -19,6 +19,14 @@
 #   Couples of start/ip address for range option.
 #   (Default: { '192.168.0.10', '192.168.0.50' } )
 #
+# [*pxe_server*]
+#   PXE server ip. Empty string mean no server.
+#   (Default: '')
+#
+# [*pxe_file*]
+#   PXE file to load. Empty string mean no file.
+#   (Default: '')
+#
 # [*export_tag*]
 #   Used tag for exported ressource
 #   (Default: my-subnet)
@@ -80,6 +88,8 @@ define dhcpd::subnet(
   $range           = {
         '192.168.0.10'  => '192.168.0.50',
     },
+  $pxe_server      = '',
+  $pxe_file        = '',
   $export_tag      = 'my-subnet',
   $options         = {},
   $template        = 'dhcpd/subnet.conf-header.erb',
