@@ -1,7 +1,7 @@
 # = Define: dhcpd::subnet
 #
-# This class add a subnetwork for DHCPD configuration
-# This class also subscribe to @concat::fragment with tag specified by
+# This class adds a subnetwork for DHCPD configuration
+# This class also subscribes to @concat::fragment with tag specified by
 # tag option. So, if you want to add a specific host configuration into this
 # subnet just add the same tag as this subnet into dhcpd::host directive.
 #
@@ -105,9 +105,10 @@ define dhcpd::subnet(
 
   if $bool_absent == false {
     concat { "$dhcpd::config_dir/$subnet_config_file":
-      mode  => $dhcpd::config_file_mode,
-      owner => $dhcpd::config_file_owner,
-      group => $dhcpd::config_file_group,
+      mode   => $dhcpd::config_file_mode,
+      owner  => $dhcpd::config_file_owner,
+      group  => $dhcpd::config_file_group,
+      notify => $dhcpd::manage_service_autorestart,
     }
 
     # Register this subnet file into main configuration
@@ -127,7 +128,6 @@ define dhcpd::subnet(
     or $dhcpd::mode == 'standalone' {
       Concat::Fragment <<| tag == "dhcpd-$export_tag" |>> {
         target => "$dhcpd::config_dir/$subnet_config_file",
-        notify => $dhcpd::manage_service_autorestart,
         order  => 50,
       }
     }
