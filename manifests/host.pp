@@ -36,7 +36,7 @@
 #   (Default: '')
 #
 # [*absent*]
-#   Wathever we want to remove this subnet.
+#   Either we want to remove this subnet.
 #   (Default: false)
 #
 # == Example:
