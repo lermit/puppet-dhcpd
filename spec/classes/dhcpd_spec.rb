@@ -1,6 +1,6 @@
 require "#{File.join(File.dirname(__FILE__),'..','spec_helper.rb')}"
 
-describe 'dhcpd' do
+describe 'dhcpd', :type => :class do
 
   let(:title) { 'dhcpd' }
   let(:node) { 'rspec.example42.com' }
