@@ -112,10 +112,10 @@ define dhcpd::subnet(
     }
 
     # Register this subnet file into main configuration
-    @@concat::fragment {"dhcpd-include-sudnet-$ip":
+    concat::fragment {"dhcpd-include-sudnet-$ip":
       target  => $dhcpd::config_file,
       content => template( 'dhcpd/include.erb' ),
-      tag     => 'dhcpd.conf',
+      order   => 50,
     }
 
     concat::fragment{"dhcpd-subnet-$ip-header":

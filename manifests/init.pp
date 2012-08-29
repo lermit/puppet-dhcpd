@@ -380,8 +380,6 @@ class dhcpd (
       order   => 01,
     }
 
-    Concat::Fragment <<| tag == 'dhcpd.conf' |>>
-
   }
 
   # The whole dhcpd configuration directory can be recursively overriden
